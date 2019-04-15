@@ -22,21 +22,21 @@
 					<li class="btnList-item" @click="seeOrder(2)">
 						<div class="btnList-item-img">
 							<img src="../../static/img/percenter/me_daifukuan@2x.png" />
-							<!--<span class="_icon" v-if="WAIT_BUYER_PAY >0 ">{{WAIT_BUYER_PAY}}</span>-->
+							<span class="_icon" v-if="WAIT_BUYER_PAY >0 ">{{WAIT_BUYER_PAY}}</span>
 						</div>
 						<span class="_labelText">待付款</span>
 					</li>
 					<li class="btnList-item" @click="seeOrder(3)">
 						<div class="btnList-item-img">
 							<img src="../../static/img/percenter/me_daifahuo@2x.png" />
-							<!--<span class="_icon" v-if="WAIT_SELLER_SEND_GOODS >0 ">{{WAIT_SELLER_SEND_GOODS}}</span>-->
+							<span class="_icon" v-if="WAIT_SELLER_SEND_GOODS >0 ">{{WAIT_SELLER_SEND_GOODS}}</span>
 						</div>
 						<span class="_labelText">待发货</span>
 					</li>
 					<li class="btnList-item" @click="seeOrder(4)">
 						<div class="btnList-item-img">
 							<img src="../../static/img/percenter/me_daishouhuo@2x.png" />
-							<!--<span class="_icon" v-if="WAIT_BUYER_CONFIRM_GOODS >0 ">{{WAIT_BUYER_CONFIRM_GOODS}}</span>-->
+							<span class="_icon" v-if="WAIT_BUYER_CONFIRM_GOODS >0 ">{{WAIT_BUYER_CONFIRM_GOODS}}</span>
 						</div>
 						<span class="_labelText">待收货</span>
 						

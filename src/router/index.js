@@ -21,8 +21,8 @@ const goodsCategory = resolve => {
 }
 //购物车
 const shoppingCats = resolve => {
-	require.ensure(['@/views/shoppingCats/cart'], () => {
-		resolve(require('@/views/shoppingCats/cart'))
+	require.ensure(['@/views/shoppingCats/index'], () => {
+		resolve(require('@/views/shoppingCats/index'))
 	})
 }
 //个人中心

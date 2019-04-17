@@ -27,10 +27,15 @@ const shoppingCats = resolve => {
 }
 //个人中心
 const perCenter = resolve => {
-	require.ensure(['@/views/perCenter/index'], () => {
-		resolve(require('@/views/perCenter/index'))
+	require.ensure(['@/views/load/index'], () => {
+		resolve(require('@/views/load/index'))
 	})
 }
+//const perCenter = resolve => {
+//	require.ensure(['@/views/perCenter/index'], () => {
+//		resolve(require('@/views/perCenter/index'))
+//	})
+//}
 //搜索页
 const search = resolve => {
 	require.ensure(['@/components/search/index'], () => {

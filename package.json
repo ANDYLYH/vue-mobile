@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "better-scroll": "^1.15.2",
     "cube-ui": "^1.12.5",
     "lib-flexible": "^0.3.2",
     "px2rem-loader": "^0.1.9",

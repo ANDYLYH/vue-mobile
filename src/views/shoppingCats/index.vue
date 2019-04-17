@@ -12,7 +12,7 @@
 			<ul class="goodsList-ul">
 				<li class="goodsList-li" v-for="(item,index) in productsContent" :key="index">
 					<div class="li-info" @touchstart="touchS" @touchmove="touchM" @touchend="touchE(index)" :class="{'moveLeft':item.leftNum < 0}">
-						<div class="li-info-checked">
+						<div class="li-info-checked" @click="selectGoods(index)">
 							<img :src="(item.check == 1 ? '../../../static/img/cart/check@2x.png' : '../../../static/img/cart/notcheck@2x.png')" />
 						</div>
 						<div class="li-info-img">
@@ -44,8 +44,8 @@
 		<div class="shoppingCart-footer">
 			<div class="footer-item footer-left">
 				<div class="left-item1" @click="selectAllGoods">
-					<!--<img src="selectAllGoodsFlag ? '../../static/img/cart/check@2x.png' : '../../static/img/cart/notcheck@2x.png'" />-->
-					<img src="../../static/img/cart/check@2x.png" />
+					<img :src="(selectAllGoodsFlag ? '../../static/img/cart/check@2x.png' : '../../static/img/cart/notcheck@2x.png')" />
+					<!--<img src="../../static/img/cart/check@2x.png" />-->
 					<span class="_text">全选</span>
 				</div>
 				<div class="left-item2" style="line-height: 16px;margin-top: 7px;" v-if="orderTotalReduce > 0">
@@ -88,7 +88,8 @@
 				orderAmountAll:0,
 				orderAmount:0,
 				orderTotalReduce:0,
-				totalNum:0
+				totalNum:0,
+				selectAllGoodsFlag:false
 			};
 		},
 		created() {
@@ -119,7 +120,33 @@
 				
 			},
 			selectAllGoods(){
-				
+				const self = this;
+				if(this.selectAllGoodsFlag){
+					this.selectAllGoodsFlag = false;
+				}else{
+					this.selectAllGoodsFlag = true;
+				}
+				var _arr = this.productsContent;
+				_arr.forEach(function(item){
+					item.check = self.selectAllGoodsFlag ? 1 : 0;
+				})
+				this.$set(this.productsContent, _arr);
+			},
+			selectGoods(idx){
+				var _arr = this.productsContent;
+				var _flag = true;
+				_arr[idx].check = this.productsContent[idx].check ? 0 : 1;
+				this.$set(this.productsContent, idx, _arr[idx]);
+				this.productsContent.forEach(function(item){
+					if(item.check == 0){
+						_flag = false
+					}
+				})
+				if(_flag){
+					this.selectAllGoodsFlag = true;
+				}else{
+					this.selectAllGoodsFlag = false;
+				}
 			},
 			shopingCartInit() {
 				this.INIT_BUYCART();
@@ -142,7 +169,7 @@
 			touchE(index) { // touchend
 				this.resetLeftNum();
 				var _arr = this.productsContent;
-				if((this.startX - this.endX) > 25) {
+				if((this.startX - this.endX) > 30) {
 					_arr[index].leftNum = -60
 					this.$set(this.productsContent, index, _arr[index])
 				} else {
@@ -271,7 +298,7 @@
 	
 	.goodsList {
 		width: 100%;
-		min-height: 100vh;
+		min-height: calc(100vh - 95px);
 		margin-bottom: 95px;
 		background-color: #F2F2F2;
 		.discountCoupon-item {

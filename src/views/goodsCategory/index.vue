@@ -1,7 +1,7 @@
 <template>
 	<div class="categoryContent">
 
-		<form action="/" style="position: relative;top: 0;z-index: 1000;left: 0;right: 0;">
+		<!--<form action="/" style="position: relative;top: 0;z-index: 1000;left: 0;right: 0;">
 			<van-search v-model="value" placeholder="请输入搜索关键词" readonly @click="goSearchPage" />
 		</form>
 		<div class="contentMain">
@@ -28,13 +28,49 @@
 				</li>
 			</ul>
 
-		</div>
+		</div>-->
+		 <scroll class="wrapper"
+          :data="mGoodsData"
+          :pulldown="pulldown"
+          :pullup="pulldown"
+          @scrollToEnd="loadData"
+          >
+          <form action="/" style="position: relative;top: 0;z-index: 1000;left: 0;right: 0;">
+			<van-search v-model="value" placeholder="请输入搜索关键词" readonly @click="goSearchPage" />
+		</form>
+		   <div class="content contentMain">
+				<ul class="content-list">
+					<li class="content-list-item" v-for="item in mGoodsData" @click="seeGoodsDetails">
+						<div class="itemBox">
+							<div class="item-img">
+								<img :src="item.url" />
+							</div>
+							<div class="item-title">
+								<p class="title-head">{{item.productName}}</p>
+								<p class="title-subhead">{{item.desc}}</p>
+							</div>
+							<div class="item-price">
+								<p class="price-disco">
+									<span class="_price">¥{{item.price}}</span>
+								</p>
+								<p class="price-sale">¥{{item.sellPrice}}</p>
+							</div>
+							<div class="item-cart" @click.stop="">
+								<buy-cart :productNo="item.productNo" :product="item"></buy-cart>
+							</div>
+						</div>
+					</li>
+				</ul>
+	
+			</div>
+  		</scroll>
 		<!--页面底部-->
 		<footer-nav :active="2"></footer-nav>
 	</div>
 </template>
 
 <script>
+	import scroll from '@/components/scrollView/index.vue'
 	import footerNav from '@/components/footer/index.vue'
 	import buyCart from '@/components/common/buyCart.vue'
 	import { mapMutations } from 'vuex'
@@ -42,12 +78,14 @@
 	export default {
 		components: {
 			footerNav,
-			buyCart
+			buyCart,
+			scroll
 		},
 		data() {
 			return {
 				mGoodsData:[],
-				value:''
+				value:'',
+				pulldown:true
 			}
 		},
 		created(){
@@ -72,6 +110,17 @@
 			},
 			goSearchPage(){
 				
+			},
+			loadData(){
+				console.log('上拉加载更多');
+				setTimeout(function(){
+					const self = this;
+					goodsData.data.content.forEach(function(item){
+						self.mGoodsData.push(item);
+					});
+					self.INIT_BUYCART();
+				},300)
+				
 			}
 		}
 	}
@@ -80,15 +129,16 @@
 <style scoped lang="scss">
 	.categoryContent {
 		/*margin-bottom: 49px;*/
-		position: relative;
+		/*position: relative;
 		height: 100vh;
-		width: 100vw;
+		width: 100vw;*/
 		.contentMain {
 			width: 100%;
 			padding: 0 20px;
 			box-sizing: border-box;
 			margin-bottom: 50px;
 			overflow: hidden;
+			background-color: #FFFFFF;
 			.content-list {
 				width: 100%;
 				margin: 1px 0;

@@ -8,7 +8,7 @@ const development = true;
 const production = false;
 const test = false;
 if(development) {
-	httpService = 'http://mallapi.qdama.cn'; //测试  
+	httpService = ''; //测试  
 } else if(production) {
 	httpService = ''; //生产  
 } else {

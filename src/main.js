@@ -7,6 +7,15 @@ import store from './store'
 import Vant from 'vant';
 import 'vant/lib/index.css';
 Vue.use(Vant);
+import FastClick from 'fastclick'
+//立即响应点击事件
+//移动设备上的浏览器默认会在用户点击屏幕大约延迟300毫秒后才会触发点击事件，
+//这是为了检查用户是否在做双击。为了能够立即响应用户的点击事件，才有了FastClick。
+if ('addEventListener' in document) {
+    document.addEventListener('DOMContentLoaded', function() {
+        FastClick.attach(document.body);
+    }, false);
+}
 
 //引入flexible
 import 'lib-flexible'
